@@ -1,0 +1,88 @@
+{% load static %}
+
+<head>
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">-->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <form action="" method="post">{% csrf_token %}
+        {{form.as_p}}
+    </form>
+    <hr>
+    <h1>Current</h1>
+    <h3>City: {{city}}</h3>
+    <hr>
+    <p>
+        today is: {{current.time}} -- current temperature is: {{current.temperature_2m}} -- temperature feels like:
+        {{current.apparent_temperature}}
+        -- weather : {% if current.weather_code == 0 %}
+        Clear sky
+        {% elif current.weather_code == 1 or current.weather_code == 2 or current.weather_code == 3 %}
+        Cloudy
+        {% elif current.weather_code == 45 or current.weather_code == 48 %}
+        Fog
+        {% elif current.weather_code == 51 or current.weather_code == 53 or current.weather_code == 55 %}
+        Drizzle
+        {% elif current.weather_code == 56 or current.weather_code == 57 %}
+        Freezing Drizzle
+        {% elif current.weather_code == 61 or current.weather_code == 63 or current.weather_code == 65 %}
+        Rain
+        {% elif current.weather_code == 66 or current.weather_code == 67 %}
+        Freezing Rain
+        {% elif current.weather_code == 71 or current.weather_code == 73 or current.weather_code == 75 %}
+        Snow fall
+        {% elif current.weather_code == 77 %}
+        Snow grains
+        {% elif current.weather_code == 80 or current.weather_code == 81 or current.weather_code == 82 %}
+        Rain showers
+        {% elif current.weather_code == 85 or current.weather_code == 86 %}
+        Snow showers
+        {% elif current.weather_code == 95 or current.weather_code == 96 or current.weather_code == 99 %}
+        Thunderstorm
+        {% else %}
+        Clear sky
+        {% endif %}
+        -- wind speed: {{current.wind_speed_10m}}
+    </p>
+    <hr>
+    <h2>7 Day forecast</h2>
+    <hr>
+    {% for time,weather_code,max_temp,min_temp,sunrise,sunset,max_windspeed in daily %}
+    <p>at day: {{time}} -- weather: {% if current.weather_code == 0 %}
+        Clear sky
+        {% elif current.weather_code == 1 or current.weather_code == 2 or current.weather_code == 3 %}
+        Cloudy
+        {% elif current.weather_code == 45 or current.weather_code == 48 %}
+        Fog
+        {% elif current.weather_code == 51 or current.weather_code == 53 or current.weather_code == 55 %}
+        Drizzle
+        {% elif current.weather_code == 56 or current.weather_code == 57 %}
+        Freezing Drizzle
+        {% elif current.weather_code == 61 or current.weather_code == 63 or current.weather_code == 65 %}
+        Rain
+        {% elif current.weather_code == 66 or current.weather_code == 67 %}
+        Freezing Rain
+        {% elif current.weather_code == 71 or current.weather_code == 73 or current.weather_code == 75 %}
+        Snow fall
+        {% elif current.weather_code == 77 %}
+        Snow grains
+        {% elif current.weather_code == 80 or current.weather_code == 81 or current.weather_code == 82 %}
+        Rain showers
+        {% elif current.weather_code == 85 or current.weather_code == 86 %}
+        Snow showers
+        {% elif current.weather_code == 95 or current.weather_code == 96 or current.weather_code == 99 %}
+        Thunderstorm
+        {% else %}
+        Clear sky
+        {% endif %}
+        -- max temperature: {{max_temp}} -- min temperature:
+        {{min_temp}}
+        -- sunrise: {{ sunrise }} -- sunset: {{ sunset }} -- max windspeed:
+        {{max_windspeed}}
+    </p>
+    {% endfor %}
+
+</body>

@@ -1,7 +1,7 @@
 from django.urls import path
 
-# from .views import homepage
+from .views import located
 
 urlpatterns = [
-    #    path("", homepage, name="home"),
+    path("", located, name="home"),
 ]
