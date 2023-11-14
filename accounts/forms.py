@@ -1,4 +1,3 @@
-from typing import Any
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 
@@ -14,8 +13,19 @@ class CustomUserCreationForm(UserCreationForm):
         fields = (
             "username",
             "email",
-            "password1",
-            "password2",
+            "password",
+            "country",
+            "city",
+        )
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = (
+            "username",
+            "email",
+            "password",
             "country",
             "city",
         )
